@@ -1,0 +1,66 @@
+name: supply-chain
+on: [push, pull_request, workflow_dispatch]
+permissions: { contents: read }
+jobs:
+  deps-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with: { node-version: 24 }
+      - name: npm audit et OSV
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          set +e
+          npm audit --json > reports/npm-audit.json
+          echo "$?" > reports/npm-audit.exit
+          docker run --rm -v "$PWD:/src" -w /src ghcr.io/google/osv-scanner:v2.5.1 scan source --lockfile=package-lock.json --format=json > reports/osv.json
+          echo "$?" > reports/osv.exit
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with: { name: dependencies-reports, path: reports/, retention-days: 7 }
+      - name: Seuil de blocage dépendances - npm HIGH CRITICAL et tout avis OSV
+        if: always()
+        run: |
+          node scripts/security-gate.mjs npm reports/npm-audit.json reports/npm-audit.exit
+          node scripts/security-gate.mjs osv reports/osv.json reports/osv.exit
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - name: Inventaire CycloneDX - sans verdict de sécurité
+        run: docker run --rm -v "$PWD:/src" -w /src aquasec/trivy:0.74.0 fs --format cyclonedx --output sbom.cdx.json --skip-dirs node_modules --skip-dirs tmp --skip-dirs .cache .
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with: { name: sbom-cyclonedx, path: sbom.cdx.json, retention-days: 7 }
+  image-scan:
+    runs-on: ubuntu-latest
+    permissions: { contents: read, security-events: write }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with: { node-version: 24 }
+      - name: Construire notre image durcie
+        run: docker build -t livraison:ci .
+      - name: Trivy image - rapport JSON et SARIF
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          set +e
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD/reports:/reports" aquasec/trivy:0.74.0 image --scanners vuln --format json --output /reports/trivy.json livraison:ci
+          echo "$?" > reports/trivy.exit
+          docker run --rm -v "$PWD/reports:/reports" aquasec/trivy:0.74.0 convert --format sarif --output /reports/trivy.sarif /reports/trivy.json
+      - name: Publier Trivy dans Security
+        if: always() && hashFiles('reports/trivy.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with: { sarif_file: reports/trivy.sarif, category: trivy-image }
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with: { name: image-reports, path: reports/, retention-days: 7 }
+      - name: Seuil de blocage image - zéro HIGH CRITICAL
+        if: always()
+        run: node scripts/security-gate.mjs trivy reports/trivy.json reports/trivy.exit
+

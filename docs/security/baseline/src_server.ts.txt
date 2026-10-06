@@ -1,0 +1,38 @@
+import Fastify from 'fastify'
+import fastifyStatic from '@fastify/static'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+import { registerRoutes } from './rest.ts'
+import { createStore, avancer, parseClientMessage, type ClientMessage } from './store.ts'
+import { zoneDe } from './domain.ts'
+import { startNaiveStub } from './realtime/naive-stub.ts'
+
+const HERE = dirname(fileURLToPath(import.meta.url))
+const PORT = Number(process.env.PORT ?? 3000)
+
+const store = createStore()
+const app = Fastify({ logger: false })
+
+await app.register(fastifyStatic, { root: join(HERE, '..', 'public') })
+registerRoutes(app, store)
+
+await app.listen({ port: PORT, host: '0.0.0.0' })
+console.log(`suivi-livraison : http://localhost:${PORT}`)
+
+// Les livreurs bougent (trace GPS rejouee), qu'un client suive ou non.
+setInterval(() => avancer(store), 400)
+
+// --- couche temps reel : stub naif (a remplacer, voir TRANSPOSITION.md) ---
+startNaiveStub<ClientMessage>(app.server, {
+  // toutes les positions de tous les livreurs, a tout le monde (defaut : etape 4, pas de room zone/commande)
+  fullState: () =>
+    [...store.livreurs.values()].map((l) => ({
+      id: l.id,
+      nom: l.nom,
+      position: l.position,
+      zone: zoneDe(l.position, store.zones),
+    })),
+  parseInput: parseClientMessage,
+  applyInput: () => {}, // "subscribe" ignore : le stub envoie tout
+})
+console.log('couche temps reel : stub naif (voir src/realtime/naive-stub.ts)')

@@ -1,0 +1,26 @@
+{
+  "docs/security/baseline/Dockerfile.txt": {
+    "sha256": "aa26ecf345ef38b5301cbbd7c101318ba014b7b27d1a7d94c845bb39220da554",
+    "bytes": 128
+  },
+  "docs/security/baseline/public_index.html.txt": {
+    "sha256": "e2988cdb66e1bd32717645bdc2ffb308081aa7d326466bd93372712594f1e747",
+    "bytes": 3086
+  },
+  "docs/security/baseline/src_realtime_naive-stub.ts.txt": {
+    "sha256": "331e155c29662631b3deaa167c583fc631e5adedb87f2ebb7710efc4a8c3d82f",
+    "bytes": 2504
+  },
+  "docs/security/baseline/src_realtime_security-helpers.ts.txt": {
+    "sha256": "aadc5b207b0c1385b8de5397ad18e69d3ff75727d1370bcd2e580661cdd564c0",
+    "bytes": 1186
+  },
+  "docs/security/baseline/src_rest.ts.txt": {
+    "sha256": "624870305112ebfe0797b8fec40c6294d5bc9785f3099f8b51b681bc6631bcf4",
+    "bytes": 1213
+  },
+  "docs/security/baseline/src_server.ts.txt": {
+    "sha256": "dcfea90fd981003f7642ac07737d2aa299ee1b5056197fb3baa67a21413288bd",
+    "bytes": 1473
+  }
+}

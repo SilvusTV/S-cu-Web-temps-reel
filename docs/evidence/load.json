@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-06T09:38:01.753Z",
+  "clients": 100,
+  "establishmentMs": 172,
+  "metricsAfter": {
+    "connections": 100,
+    "disconnections": 100,
+    "active": 0,
+    "rejected": 0,
+    "redisErrors": 0
+  }
+}

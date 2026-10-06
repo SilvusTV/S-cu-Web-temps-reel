@@ -1,0 +1,39 @@
+name: livraison-security
+services:
+  redis-test:
+    image: redis:7.4-alpine
+    ports: ["127.0.0.1:16379:6379"]
+    command: [redis-server, --save, "", --appendonly, "no"]
+  semgrep:
+    image: semgrep/semgrep:1.145.0
+    working_dir: /src
+    volumes: ["./:/src"]
+    entrypoint: semgrep
+    command: [scan, --config=p/ci, --config=.semgrep/, --sarif, --output=reports/semgrep.sarif, --error, --metrics=off, src, public/app.js]
+  osv:
+    image: ghcr.io/google/osv-scanner:v2.5.1
+    working_dir: /src
+    volumes: ["./:/src"]
+    command: [scan, source, --lockfile=package-lock.json, --format=json, --output-file=reports/osv.json]
+  sbom:
+    image: aquasec/trivy:0.74.0
+    working_dir: /src
+    volumes: ["./:/src", "trivy-cache:/root/.cache/trivy"]
+    command: [fs, --format, cyclonedx, --output, reports/sbom.cdx.json, --skip-dirs, node_modules, --skip-dirs, tmp, --skip-dirs, .cache, .]
+  image-scan:
+    image: aquasec/trivy:0.74.0
+    volumes: ["./reports:/reports", "/var/run/docker.sock:/var/run/docker.sock", "trivy-cache:/root/.cache/trivy"]
+    command: [image, --scanners, vuln, --format, json, --output, /reports/trivy.json, livraison-app:latest]
+  zap:
+    image: ghcr.io/zaproxy/zaproxy:2.16.1
+    volumes: ["./reports:/zap/wrk:rw"]
+    entrypoint: [bash, -c]
+    command:
+      - "zap-baseline.py -t http://app:3000 -m 1 -J zap.json -r zap.html; result=$$?; echo $$result > /zap/wrk/zap.exit; exit $$result"
+    networks: [target]
+volumes:
+  trivy-cache:
+networks:
+  target:
+    external: true
+    name: livraison_default

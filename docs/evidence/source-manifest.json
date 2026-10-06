@@ -1,0 +1,273 @@
+{
+  "at": "2026-10-06T09:48:39.703Z",
+  "files": {
+    ".dockerignore": {
+      "sha256": "9267558dd3e06e045813875f6bdfc0de5977becead717bc426aec65dd4b47df0",
+      "bytes": 129
+    },
+    ".env.example": {
+      "sha256": "8a28f0e8afbc369108936ebb8f44744bd1a6ad6533c20efa14f84a62cf691a65",
+      "bytes": 220
+    },
+    ".gitattributes": {
+      "sha256": "87e9f902e31b19dc54d4259102a798e8aad52400b9165f2d90c06c9539460984",
+      "bytes": 71
+    },
+    ".github/dependabot.yml": {
+      "sha256": "4e820d9e2346d4603f17c5e6f9efe5dd2a91a9aed0caddba2ad4072db2dbaf7a",
+      "bytes": 310
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "8064a4a8370e88a9936d7c6e5ae1deb8564e3aa5b09c977db5db7aef2eed16bf",
+      "bytes": 2348
+    },
+    ".github/workflows/dast.yml": {
+      "sha256": "2e74b8f0fcefb44f940024192183c68c1f4857ef895006f89fa6e9e630446050",
+      "bytes": 1739
+    },
+    ".github/workflows/sast.yml": {
+      "sha256": "634df9fe9f0c5fc04de9da7a15ffbf5f53bd50e3318abeed9243d9c19ba68201",
+      "bytes": 4528
+    },
+    ".github/workflows/supply-chain.yml": {
+      "sha256": "4c7813a84d152697c3c08d7de62cf96b546bbb9612b87f2ac7d71dd633a35f21",
+      "bytes": 3542
+    },
+    ".gitignore": {
+      "sha256": "6b1650917f592d735a7d36ac6af4f2230102dd92f7c780436cd983b845df0448",
+      "bytes": 125
+    },
+    ".gitleaks.toml": {
+      "sha256": "38bd8199189bb4e8b34b9c98f41b4b7613014660803d6d2a502ac608b0bafd6b",
+      "bytes": 231
+    },
+    ".semgrep/weak-crypto.yml": {
+      "sha256": "1841ec3dca08fe09148c831efb572211366ba21b57c75af3c6b527d8ae6b35b5",
+      "bytes": 1304
+    },
+    "Dockerfile": {
+      "sha256": "f56f9c2d8fdecc9d560697ad2586f8d809018ca7f12cb617d54afa095cb4d653",
+      "bytes": 605
+    },
+    "docker-compose.chaos.yml": {
+      "sha256": "65d4938cf5be33c8106e109a3facc046a60a6fce882b6deba4d5b879ae046b64",
+      "bytes": 568
+    },
+    "docker-compose.cluster-test.yml": {
+      "sha256": "bdd58c5e8298bddfec508197cd8359e36c3cb5dd95f68a6a24353fd1df9cc57e",
+      "bytes": 365
+    },
+    "docker-compose.cluster.yml": {
+      "sha256": "914c6d5be74f9797fba1e52b2ef2713cbc64d34f6175a88d6e7c140c297e01b0",
+      "bytes": 1200
+    },
+    "docker-compose.security.yml": {
+      "sha256": "4d2934930c2041af66d4a92c970ea7a65beb17c747c51dc757805f5d979b0d48",
+      "bytes": 1582
+    },
+    "docker-compose.yml": {
+      "sha256": "a00a9a3dcba3079a42abe0e21d1cd277a2130f1e67870a9e1e7ba0a8af07660b",
+      "bytes": 699
+    },
+    "eslint.config.mjs": {
+      "sha256": "5a1e45629412baaed1e7724a911ced55f26983db626b0d3d16a82d0dcbcd91df",
+      "bytes": 874
+    },
+    "nginx.conf": {
+      "sha256": "f142aabf2c1159b1ae0365a960f5cb8282310b83256232bc080103e2e65db4cf",
+      "bytes": 376
+    },
+    "package-lock.json": {
+      "sha256": "9153f8c12813de2d5e33fa2ce4209e2815064b6c01fba571ad0c69f8cf7f9f8d",
+      "bytes": 127169
+    },
+    "package.json": {
+      "sha256": "9d0ac0a909db02a9ccbd17eb40032e14d3e1cd27e26a65fba4da7aee88b87c52",
+      "bytes": 2448
+    },
+    "playwright.config.ts": {
+      "sha256": "59c123eb94f3e0de5874651bd3ada8a03c874ab29a1913e92b1968eb1f1d2476",
+      "bytes": 597
+    },
+    "public/app.js": {
+      "sha256": "06162a692213b40451261b8a9dfb310e5dea6a6c159524fad97948b0dd783579",
+      "bytes": 10795
+    },
+    "public/index.html": {
+      "sha256": "dfdec53b2769d5df5438a9c2475b4bb1ddb1f258fed211bf906921f10a777e85",
+      "bytes": 2712
+    },
+    "public/style.css": {
+      "sha256": "0abe0e15a3202efa2354bc531991e45249d7e06cba5e4094dc8cda1fb58ccb68",
+      "bytes": 1830
+    },
+    "scripts/baseline-proof.mjs": {
+      "sha256": "7a937e0d0a49669b1f322ea2e8ba1934af9e580870305c0700296e0b29334eb7",
+      "bytes": 2505
+    },
+    "scripts/build.mjs": {
+      "sha256": "d231ff29171f21a045cdce0fc44151049aac7e2c8a54409876e840a77a36f3ad",
+      "bytes": 677
+    },
+    "scripts/chaos.mjs": {
+      "sha256": "e3951d4cef5f8739d5b082f19b852c1559644ab9b15a63c46d3878feb1d5c09c",
+      "bytes": 1488
+    },
+    "scripts/cluster-probe.mjs": {
+      "sha256": "9da99b4645192a50dade0924bcf7b9c997fe76da7cad4b320ee76308d755b2ce",
+      "bytes": 2668
+    },
+    "scripts/deployment-smoke.mjs": {
+      "sha256": "b07aa210d663ac06365d1c84cbd0b2a12c9455dfceeed402a6f955ac015ace4f",
+      "bytes": 931
+    },
+    "scripts/evidence.mjs": {
+      "sha256": "b87be6eedb110aea95f9156f3c723bd8fc31406e23eb7eef075c7d20c3a632b6",
+      "bytes": 1301
+    },
+    "scripts/loadtest.mjs": {
+      "sha256": "16af2f0ca3e92803b24938aade6d3287aa58daf9dbdc758f12804ad4c467e89e",
+      "bytes": 1318
+    },
+    "scripts/prepare-baseline-scan.mjs": {
+      "sha256": "7f07110fb4f468caa5db61f5eb7a55075f0b8412a4c641e79f5d20a845ba9c92",
+      "bytes": 542
+    },
+    "scripts/regression.mjs": {
+      "sha256": "83dc405cdf5d5faded8ad4ca8f912911b4c18c1f534bc1deb52ba281893f6cc7",
+      "bytes": 1022
+    },
+    "scripts/security-gate.mjs": {
+      "sha256": "968e2e88b46da1f6047b66639ced25dd7140d7362768ed7b79695812b1758c53",
+      "bytes": 2750
+    },
+    "scripts/setup.mjs": {
+      "sha256": "402c9a5bef7b15bb9b77ce610ce7e69434e9bcf2e355598db3fd653e4d12099d",
+      "bytes": 556
+    },
+    "scripts/toxiproxy-test.mjs": {
+      "sha256": "d71559be92fbe85d2fdfa4c5748cf5e31e1821997f82c2d6b4caa3eaa9b209a1",
+      "bytes": 3641
+    },
+    "scripts/validate-workflows.mjs": {
+      "sha256": "c9981ab76e9bbcc00e2649cb2e495491c6c7e57934adb34563181b6300be7c46",
+      "bytes": 542
+    },
+    "src/auth.ts": {
+      "sha256": "a6ad28d2851fba7f86c1886d2df88b920fd4ba77b9734512f172f3d6dff445ba",
+      "bytes": 2475
+    },
+    "src/config.ts": {
+      "sha256": "f8ab07b4e1ba304c81d088d51ab4f6ce98c4be2b53f7067771b2eae8d4af32de",
+      "bytes": 1194
+    },
+    "src/domain.ts": {
+      "sha256": "101e7824a965526fd2cbb8f0a2c0c86ccfa628d32d59cc7c06f6b3910fde057c",
+      "bytes": 1564
+    },
+    "src/realtime/convergence.exemple.ts": {
+      "sha256": "12cf755037d95445058d14417e692d46d20aa7f31829627ac3c093ae71b1adda",
+      "bytes": 1688
+    },
+    "src/realtime/framing.ts": {
+      "sha256": "2c8381b81ce61272ab909807247d29f817bf9a5f62ce7fb3d5209c526c642647",
+      "bytes": 854
+    },
+    "src/realtime/piege.scenario.ts": {
+      "sha256": "b4d9a1cfcaefafec30560b63b763c194f5cf398aa93442a8d40766d5483aa4a6",
+      "bytes": 1810
+    },
+    "src/realtime/presence.ts": {
+      "sha256": "2b3febfb63aaaa9ca35b5b73ec84287eb133feffdf96ca15ff5d8850e326523c",
+      "bytes": 1604
+    },
+    "src/realtime/security-helpers.ts": {
+      "sha256": "930ececaa177d233d241c9bb17dfb5446d53afcb6099181245f1b1a7389a90ee",
+      "bytes": 1427
+    },
+    "src/realtime/socket-server.ts": {
+      "sha256": "e275af47272123eb89223ff9e776008bac049a97ac2129f69074cbfb820096c9",
+      "bytes": 8507
+    },
+    "src/realtime/sse.ts": {
+      "sha256": "d50fe257dee85b1365266433244f228ac9fcd63d38b33fa5760f1acc61cd0505",
+      "bytes": 3348
+    },
+    "src/realtime/state.ts": {
+      "sha256": "b241510de7a11a2ed2bb18068be19a808e00aeb32d561304de686444ab736fbd",
+      "bytes": 7339
+    },
+    "src/realtime/ws-server.ts": {
+      "sha256": "39654213a7c30b5bfe4013d861282dfce2cfce4d15f08f771ed140cc80a9a095",
+      "bytes": 1572
+    },
+    "src/rest.ts": {
+      "sha256": "cfc06fcb09e3b1b7e88317ac9e163ceb6c891edbd56c0245ab7678e5b695ce6c",
+      "bytes": 3378
+    },
+    "src/seed.ts": {
+      "sha256": "e3f4630639fcb60688ed12338bf3d9de25dc57d266020fe08e80de7153b98d4a",
+      "bytes": 2148
+    },
+    "src/server.ts": {
+      "sha256": "4b39adfc243f48242791343a010b181282f4b814a5e2c699e72420e41e3bd6e9",
+      "bytes": 3983
+    },
+    "src/store.ts": {
+      "sha256": "08ae9481f9e784513a0fc1db7dd4cceb869128ef290c326f6ab889eff29e8227",
+      "bytes": 338
+    },
+    "tests/browser/live.spec.ts": {
+      "sha256": "5f2925f59806dae3e204b4f10ff5c6da376f14a6ccbd07f6d014b7048225232c",
+      "bytes": 2714
+    },
+    "tests/browser/setup.ts": {
+      "sha256": "6328200ed0f251e7356273f6876cd8d339d9951e5c94c89f39646d67a5cb924c",
+      "bytes": 688
+    },
+    "tests/chaos.test.ts": {
+      "sha256": "92b77651a012e36c6492d9d24e476471a48adb712f0dd3de63ae1e171a754c3f",
+      "bytes": 3016
+    },
+    "tests/cluster.test.ts": {
+      "sha256": "0a3b168b53bf28a375fad475c2b1a9eded32970234ac67115d9973f5abeaf07b",
+      "bytes": 2046
+    },
+    "tests/domain.test.ts": {
+      "sha256": "3e0bf8169e69bbd3899b0ee41d893f271cc93bfe2ab361c5adda0c5d7810ae09",
+      "bytes": 1990
+    },
+    "tests/framing.test.ts": {
+      "sha256": "15ea0068edda31a7faac3ae2eacd1cf15a83024d16d7c26042650870547e3a69",
+      "bytes": 695
+    },
+    "tests/gates.test.mjs": {
+      "sha256": "83c6d65991cf5cc5b74b89c36299b03756b9b0a345185de4f979cdb17bdbf638",
+      "bytes": 1526
+    },
+    "tests/helpers.ts": {
+      "sha256": "a188592819a1a7456baed40113d862844064af428843291f30a9d30a911a0ab7",
+      "bytes": 1885
+    },
+    "tests/load.test.ts": {
+      "sha256": "2bcdd82892a52c482d0e6af71d02891ec06e58b9c21e68ad0efa61c614dd2592",
+      "bytes": 1330
+    },
+    "tests/presence.test.ts": {
+      "sha256": "d3175ae7f6e28c94c5c96ef25b6adb5d796665ad32ffebac93ba219490c7f49c",
+      "bytes": 1163
+    },
+    "tests/realtime.test.ts": {
+      "sha256": "0ff613e67c75cccd0dbb2e4d09b6e2a3ea6b84c3f6f47e3a217dfacf2d3f078b",
+      "bytes": 3410
+    },
+    "tests/security.test.ts": {
+      "sha256": "43bf97d0da7d7bd96e940275af8f55f8624254aa3a2f951ffdb3187a97b2cc42",
+      "bytes": 5597
+    },
+    "tsconfig.json": {
+      "sha256": "d8b242a45a32e9798f0a8c68f07a87080ab833b189481dae4221289f8ee1d671",
+      "bytes": 447
+    }
+  }
+}

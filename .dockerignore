@@ -1,0 +1,16 @@
+.git
+.github
+node_modules
+.cache
+tmp
+.env
+.env.*
+docs
+tests
+reports
+test-results
+playwright-report
+dist
+public/bundle.js
+*.log
+

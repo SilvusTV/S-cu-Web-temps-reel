@@ -1,0 +1,13 @@
+name: livraison-cluster-test
+services:
+  probe:
+    image: livraison-app:latest
+    command: [/app/cluster-probe.mjs]
+    volumes: ["./scripts/cluster-probe.mjs:/app/cluster-probe.mjs:ro"]
+    environment:
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?Lancez npm run setup}
+    networks: [target]
+networks:
+  target:
+    external: true
+    name: livraison-cluster_default

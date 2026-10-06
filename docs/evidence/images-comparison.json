@@ -1,0 +1,68 @@
+[
+  {
+    "image": "node:24",
+    "scannedAt": "2026-10-06T09:27:24.025840638Z",
+    "digests": [
+      "node@sha256:22f6fe5f59fb7fed238b19623506d573dffaa932ce33b84ce541a9a2e0eade28"
+    ],
+    "counts": {
+      "LOW": 1463,
+      "HIGH": 456,
+      "MEDIUM": 2427,
+      "UNKNOWN": 36,
+      "CRITICAL": 20
+    },
+    "os": {
+      "Family": "debian",
+      "Name": "12.15"
+    }
+  },
+  {
+    "image": "node:24-slim",
+    "scannedAt": "2026-10-06T09:26:21.136202471Z",
+    "digests": [
+      "node@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20"
+    ],
+    "counts": {
+      "LOW": 77,
+      "HIGH": 60,
+      "MEDIUM": 113,
+      "UNKNOWN": 2,
+      "CRITICAL": 4
+    },
+    "os": {
+      "Family": "debian",
+      "Name": "12.15"
+    }
+  },
+  {
+    "image": "gcr.io/distroless/nodejs24-debian13:nonroot",
+    "scannedAt": "2026-10-06T09:28:48.465539935Z",
+    "digests": [
+      "gcr.io/distroless/nodejs24-debian13@sha256:9eeb7f5887d0e239e78264b06f7f11d2e14be534050481803a9e4728fcdd278e"
+    ],
+    "counts": {
+      "MEDIUM": 23,
+      "LOW": 8
+    },
+    "os": {
+      "Family": "debian",
+      "Name": "13.7"
+    }
+  },
+  {
+    "image": "livraison-app:latest",
+    "scannedAt": "2026-10-06T09:39:48.898509827Z",
+    "digests": [
+      "livraison-app@sha256:7922dd005684bfdf401d2546f756fe6aaf73c87689783d1a1955a973a72c1940"
+    ],
+    "counts": {
+      "MEDIUM": 23,
+      "LOW": 8
+    },
+    "os": {
+      "Family": "debian",
+      "Name": "13.7"
+    }
+  }
+]

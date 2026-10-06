@@ -1,0 +1,33 @@
+rules:
+  - id: livraison-weak-hash
+    languages: [typescript, javascript]
+    message: Hachage MD5/SHA1 interdit pour les données sensibles.
+    severity: ERROR
+    metadata:
+      cwe: "CWE-327: Use of a Broken or Risky Cryptographic Algorithm"
+    pattern-either:
+      - pattern: crypto.createHash("md5")
+      - pattern: crypto.createHash("sha1")
+      - pattern: createHash("md5")
+      - pattern: createHash("sha1")
+  - id: livraison-hardcoded-jwt-secret
+    languages: [typescript, javascript]
+    message: Une clé JWT/HMAC doit être injectée hors du dépôt et rotationnable.
+    severity: ERROR
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+    pattern-either:
+      - pattern: jwt.sign($PAYLOAD, "...", ...)
+      - pattern: jwt.verify($TOKEN, "...", ...)
+      - pattern: crypto.createHmac($ALGO, "...")
+      - pattern: const SECRET = "..."
+      - pattern: const JWT_SECRET = "..."
+      - pattern: $KEY = "=~/-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----/"
+  - id: livraison-unsafe-html
+    languages: [typescript, javascript]
+    message: Construire le DOM avec textContent ; éviter les injections HTML.
+    severity: ERROR
+    metadata:
+      cwe: "CWE-79: Improper Neutralization of Input During Web Page Generation"
+    pattern: $ELEMENT.innerHTML = $VALUE
+

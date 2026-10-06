@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-06T09:28:27.864Z",
+  "tool": "Toxiproxy 2.12.0 / Docker",
+  "latencyMs": 200,
+  "outageMs": 5000,
+  "establishmentMs": 621,
+  "resyncMs": 922,
+  "converged": true
+}

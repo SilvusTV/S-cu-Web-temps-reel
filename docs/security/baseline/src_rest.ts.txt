@@ -1,0 +1,33 @@
+import type { FastifyInstance } from 'fastify'
+import { etaMinutes, zoneDe } from './domain.ts'
+import type { Store } from './store.ts'
+
+export function registerRoutes(app: FastifyInstance, store: Store): void {
+  app.get('/api/livreurs', async () =>
+    [...store.livreurs.values()].map((l) => ({
+      id: l.id,
+      nom: l.nom,
+      position: l.position,
+      zone: zoneDe(l.position, store.zones),
+    })),
+  )
+
+  app.get('/api/zones', async () => store.zones)
+
+  app.get('/api/commandes/:id', async (req, reply) => {
+    const cmd = store.commandes.get((req.params as { id: string }).id)
+    if (!cmd) return reply.code(404).send({ error: 'commande inconnue' })
+    const livreur = store.livreurs.get(cmd.livreurId)
+    return {
+      ...cmd,
+      livreur: livreur ? { id: livreur.id, nom: livreur.nom, position: livreur.position } : null,
+      etaMinutes: livreur ? etaMinutes(livreur.position, cmd.destination) : null,
+    }
+  })
+
+  app.get('/api/commandes/:id/trace', async (req, reply) => {
+    const cmd = store.commandes.get((req.params as { id: string }).id)
+    if (!cmd) return reply.code(404).send({ error: 'commande inconnue' })
+    return cmd.livreurId === 'liv-1' ? store.trace : []
+  })
+}

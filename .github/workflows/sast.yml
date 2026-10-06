@@ -1,0 +1,86 @@
+name: sast
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      regression:
+        description: Régression temporaire injectée dans le runner pour la démo
+        type: choice
+        options: [none, sast, secret]
+        default: none
+permissions:
+  contents: read
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with: { node-version: 24 }
+      - name: Préparer la régression de démonstration
+        if: github.event_name == 'workflow_dispatch' && inputs.regression == 'sast'
+        run: node scripts/regression.mjs sast
+      - name: Scan Semgrep
+        id: scan
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          set +e
+          docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:1.145.0 semgrep scan --config=p/ci --config=.semgrep/ --sarif --output=reports/semgrep.sarif --error --metrics=off src public/app.js
+          status=$?
+          echo "$status" > reports/semgrep.exit
+          exit "$status"
+      - name: Publier le finding dans Security
+        if: always() && hashFiles('reports/semgrep.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with: { sarif_file: reports/semgrep.sarif, category: semgrep }
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with: { name: semgrep-reports, path: reports/, retention-days: 7 }
+      - name: Seuil de blocage SAST - zéro warning ou error
+        if: always()
+        run: node scripts/security-gate.mjs sarif reports/semgrep.sarif reports/semgrep.exit
+  secret-detection:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { fetch-depth: 0, persist-credentials: false }
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with: { node-version: 24 }
+      - name: Préparer la fausse clé de démonstration
+        if: github.event_name == 'workflow_dispatch' && inputs.regression == 'secret'
+        run: node scripts/regression.mjs secret
+      - name: Gitleaks - historique complet et arbre courant
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          set +e
+          docker run --rm -v "$PWD:/src" -w /src ghcr.io/gitleaks/gitleaks:v8.30.1 git --config .gitleaks.toml --report-format sarif --report-path reports/gitleaks-history.sarif --redact .
+          echo "$?" > reports/gitleaks-history.exit
+          docker run --rm -v "$PWD:/src" -w /src ghcr.io/gitleaks/gitleaks:v8.30.1 dir --config .gitleaks.toml --report-format sarif --report-path reports/gitleaks-tree.sarif --redact .
+          echo "$?" > reports/gitleaks-tree.exit
+      - name: Publier les secrets dans Security
+        if: always() && hashFiles('reports/gitleaks-history.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with: { sarif_file: reports/gitleaks-history.sarif, category: gitleaks-history }
+      - name: Publier les secrets de l'arbre dans Security
+        if: always() && hashFiles('reports/gitleaks-tree.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with: { sarif_file: reports/gitleaks-tree.sarif, category: gitleaks-tree }
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with: { name: gitleaks-reports, path: reports/, retention-days: 7 }
+      - name: Seuil de blocage secrets - zéro secret, historique et arbre
+        if: always()
+        run: |
+          node scripts/security-gate.mjs sarif reports/gitleaks-history.sarif reports/gitleaks-history.exit
+          node scripts/security-gate.mjs sarif reports/gitleaks-tree.sarif reports/gitleaks-tree.exit
+

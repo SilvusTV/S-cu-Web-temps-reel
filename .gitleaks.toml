@@ -1,0 +1,8 @@
+[extend]
+useDefault = true
+[[allowlists]]
+description = "Répertoires générés et non publiés ; aucun code source métier exclu"
+paths = [
+  '''(^|/)(node_modules|\.cache|tmp|dist|reports|test-results|playwright-report)/'''
+]
+

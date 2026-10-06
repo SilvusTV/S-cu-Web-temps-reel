@@ -1,0 +1,17 @@
+name: livraison-chaos
+services:
+  app:
+    build: .
+    # Accès de contrôle local pour le test pendant la coupure du proxy.
+    ports: ["127.0.0.1:19002:3000"]
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?Lancez npm run setup}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?Lancez npm run setup}
+      DEMO_MODE: "true"
+      SIMULATION: "true"
+      ALLOWED_ORIGINS: http://localhost:19001,http://127.0.0.1:19001
+  toxiproxy:
+    image: ghcr.io/shopify/toxiproxy:2.12.0
+    ports: ["127.0.0.1:19001:19001", "127.0.0.1:8474:8474"]
+    depends_on: [app]
+

@@ -1,0 +1,44 @@
+name: dast
+on: [push, pull_request, workflow_dispatch]
+permissions: { contents: read }
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with: { node-version: 24, cache: npm }
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - name: Lancer l'application locale avec des secrets éphémères
+        run: |
+          node scripts/setup.mjs > /dev/null
+          node dist/server.js > app.log 2>&1 &
+          echo "$!" > app.pid
+          curl --fail --retry 20 --retry-connrefused --retry-delay 1 http://127.0.0.1:3000/health
+      - run: npm run test:deployment
+      - name: Scan OWASP ZAP baseline - HTTP public
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          chmod 777 reports
+          set +e
+          docker run --rm --network host -v "$PWD/reports:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:2.16.1 zap-baseline.py -t http://127.0.0.1:3000 -m 1 -J zap.json -r zap.html
+          echo "$?" > reports/zap.exit
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        if: always()
+        with:
+          name: dast-reports
+          path: |
+            reports/
+            app.log
+          retention-days: 7
+      - name: Seuil de blocage DAST - MEDIUM HIGH et CSP framing nosniff
+        if: always()
+        run: node scripts/security-gate.mjs zap reports/zap.json reports/zap.exit
+      - name: Arrêter le service
+        if: always()
+        run: if [ -f app.pid ]; then kill "$(cat app.pid)" || true; fi
+

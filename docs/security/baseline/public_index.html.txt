@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Suivi de livraison</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; margin: 1.5rem; max-width: 720px; }
+    svg { border: 1px solid #ccc; background: #fafafa; }
+    .zone { fill: rgba(0,120,255,.08); stroke: #0078ff; stroke-dasharray: 4; }
+    .livreur { fill: #e05a5a; }
+    .label { font-size: 10px; fill: #333; }
+    .hint { color: #666; }
+    label { margin-right: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Suivi de livraison <span id="status" class="hint">deconnecte</span></h1>
+  <p>
+    <label>vue : <select id="vue"><option value="client">client (ma commande)</option><option value="dispatch">dispatcher (tout)</option></select></label>
+    <label>commande : <select id="cmd"></select></label>
+  </p>
+  <p class="hint">
+    Le stub envoie la position de <b>tous</b> les livreurs a <b>tous</b> les clients, sans room
+    par zone ni par commande, et sans lissage : la carte saute. Ouvrez l'onglet Reseau pour voir
+    le volume.
+  </p>
+  <svg id="carte" width="680" height="360" viewBox="0 0 680 360"></svg>
+  <p id="eta"></p>
+
+  <script>
+    // projection lat/lon -> pixels (bbox large autour d'Aix)
+    const LAT = [43.515, 43.575], LON = [5.42, 5.48]
+    const X = (lon) => ((lon - LON[0]) / (LON[1] - LON[0])) * 680
+    const Y = (lat) => 360 - ((lat - LAT[0]) / (LAT[1] - LAT[0])) * 360
+    const carte = document.getElementById('carte')
+    const status = document.getElementById('status')
+    let zones = []
+
+    fetch('/api/zones').then((r) => r.json()).then((z) => { zones = z; draw([]) })
+    fetch('/api/commandes/cmd-101').then(() => {})
+    ;['cmd-101','cmd-102','cmd-103','cmd-104','cmd-105'].forEach((id) => {
+      const o = document.createElement('option'); o.value = id; o.textContent = id
+      document.getElementById('cmd').appendChild(o)
+    })
+
+    const ws = new WebSocket(`ws://${location.host}`)
+    ws.onopen = () => (status.textContent = 'connecte')
+    ws.onclose = () => (status.textContent = 'deconnecte')
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data)
+      if (msg.type === 'state') draw(msg.state)
+    }
+
+    function draw(livreurs) {
+      const vue = document.getElementById('vue').value
+      const shown = vue === 'client' ? livreurs.filter((l) => l.id === 'liv-1') : livreurs
+      carte.innerHTML =
+        zones.map((z) => {
+          const x = X(z.bbox[2]), y = Y(z.bbox[1]), w = X(z.bbox[3]) - x, h = Y(z.bbox[0]) - y
+          return `<rect class="zone" x="${x}" y="${y}" width="${w}" height="${h}"/>
+                  <text class="label" x="${x+4}" y="${y+14}">${z.nom}</text>`
+        }).join('') +
+        shown.map((l) =>
+          `<circle class="livreur" cx="${X(l.position.lon)}" cy="${Y(l.position.lat)}" r="6"/>
+           <text class="label" x="${X(l.position.lon)+8}" y="${Y(l.position.lat)}">${l.nom} (${l.zone ?? 'hors zone'})</text>`
+        ).join('')
+    }
+    document.getElementById('vue').onchange = () => {}
+  </script>
+</body>
+</html>

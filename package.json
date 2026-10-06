@@ -1,0 +1,61 @@
+{
+  "name": "suivi-livraison",
+  "private": true,
+  "type": "module",
+  "description": "Suivi de livraison sécurisé et temps réel - projet M2",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node --import tsx --watch src/server.ts",
+    "start": "node scripts/build.mjs && node --import tsx src/server.ts",
+    "build": "node scripts/build.mjs",
+    "start:prod": "node dist/server.js",
+    "seed": "node --import tsx src/seed.ts --print",
+    "scenario": "node --import tsx src/realtime/piege.scenario.ts --avec-strategie",
+    "scenario:naive": "node --import tsx src/realtime/piege.scenario.ts",
+    "typecheck": "node node_modules/typescript/bin/tsc --noEmit",
+    "lint": "node node_modules/eslint/bin/eslint.js src tests public/app.js scripts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "node scripts/build.mjs && node node_modules/@playwright/test/cli.js test",
+    "check": "npm run typecheck && npm run lint && npm test && npm run security:gates && npm run validate:workflows && npm run build",
+    "test:cluster": "node --import tsx --test tests/cluster.test.ts",
+    "security:gates": "node --test tests/gates.test.mjs",
+    "test:load": "node scripts/loadtest.mjs",
+    "chaos": "node scripts/chaos.mjs",
+    "validate:workflows": "node scripts/validate-workflows.mjs",
+    "demo:regression": "node scripts/regression.mjs",
+    "audit:baseline": "node --import tsx scripts/baseline-proof.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "test:deployment": "node scripts/deployment-smoke.mjs",
+    "test:toxiproxy": "node scripts/toxiproxy-test.mjs"
+  },
+  "dependencies": {
+    "@fastify/cookie": "11.1.2",
+    "@fastify/helmet": "13.1.1",
+    "@fastify/rate-limit": "11.2.0",
+    "@fastify/static": "10.1.5",
+    "@socket.io/redis-adapter": "8.3.0",
+    "dotenv": "18.0.5",
+    "fastify": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "redis": "6.3.0",
+    "socket.io": "4.8.4",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.5.13",
+    "esbuild": "0.28.2",
+    "eslint": "10.12.0",
+    "socket.io-client": "4.8.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "8.71.1",
+    "yaml": "2.9.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

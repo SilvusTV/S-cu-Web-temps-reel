@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.cache/
+tmp/
+.env
+.env.*
+!.env.example
+public/bundle.js
+playwright-report/
+test-results/
+reports/
+*.log

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Suivi de livraison</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><p class="eyebrow">LIVRAISONS · SUIVI EN DIRECT</p><h1>Chaque livraison, au bon endroit.</h1><p id="status" role="status">Connectez-vous pour suivre votre commande.</p></header>
+<main>
+<section id="login-panel"><h2>Connexion de démonstration</h2><form id="login"><label>Profil<select id="username"><option value="camille">Camille · cliente cmd-101</option><option value="sam">Sam · livreur cmd-101</option><option value="dispatcher">Dispatcher · zones</option><option value="jules">Jules · client cmd-102</option><option value="lina">Lina · cliente cmd-103</option><option value="nadia">Nadia · livreuse cmd-102</option><option value="theo">Théo · livreur cmd-103</option></select></label><label>Mot de passe<input id="password" type="password" required autocomplete="current-password"></label><button>Se connecter</button></form><p>Le mot de passe local est généré par <code>npm run setup</code>.</p><p id="login-error" role="alert"></p></section>
+<section id="workspace" hidden>
+<div class="toolbar"><label>Suivi<select id="room"></select></label><label>Canal<select id="transport"><option value="socket">Socket.IO</option><option value="sse">SSE · lecture seule</option></select></label><button id="logout">Déconnexion</button></div>
+<div class="cards"><article><span>COMMANDE</span><h2 id="order">—</h2><p id="eta">—</p></article><article><span>PRÉSENCE DANS LA ROOM</span><h2 id="presence">—</h2><p>Délai de grâce : 5 secondes</p></article></div>
+<svg id="carte" viewBox="0 0 680 360" role="img" aria-label="Carte des positions de livraison"></svg>
+<div class="toolbar"><button id="cut">Simuler une coupure de 5 s</button><button id="pitfall" hidden>Injecter des GPS désordonnés</button><button id="send-position" hidden>Envoyer ma position</button><button id="p2p" hidden>Ouvrir le canal direct</button></div>
+<p id="p2p-status">Canal direct : inactif</p>
+<section id="comparison" hidden><h2>Résolution du piège GPS</h2><p>Les points anciens sont refusés par le serveur. Les deux navigateurs reçoivent le même état.</p><table><thead><tr><th>Ordre de réception</th><th>Horodatage GPS</th><th>Décision serveur</th></tr></thead><tbody id="pitfall-results"></tbody></table></section>
+<details open><summary>Journal du suivi</summary><ol id="journal" aria-live="polite"></ol></details>
+</section></main><footer>Projet pédagogique · données fictives · ETA à vol d’oiseau</footer>
+<script type="module" src="/bundle.js"></script>
+</body></html>

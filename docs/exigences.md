@@ -13,7 +13,7 @@ Le code permet la démo ; le passage live et les 8 points de Q&A dépendent du t
 | Critère | Livré | Preuve / reste indispensable |
 |---|---|---|
 | Threat model /3 | DFD du service, 4 acteurs, process/stores réels, 4 frontières, 14 STRIDE et BE/ER pour chaque H | contexte.md, threat-model.md |
-| Pipeline /4 | SAST, secrets, SCA, image/SBOM, DAST ; gates explicites, SARIF, régression contrôlée | Gates testés, Semgrep/Gitleaks rouge/vert, npm/OSV/Trivy/ZAP locaux passés ; runs GitHub/lecture Security à produire après push |
+| Pipeline /4 | SAST, secrets, SCA, image/SBOM, DAST ; gates explicites, SARIF, régression contrôlée | Gates testés, Semgrep/Gitleaks rouge/vert, npm/OSV/Trivy/ZAP locaux passés ; quatre workflows GitHub verts et SAST rouge/vert ; publication/lecture SARIF vérifiées, capture UI pour l’oral |
 | Audit/ADR-2 /3 | 5 findings priorisés, CWE, preuves, corrections/risques résiduels | rapport-audit.md, baseline-proof, ADR-2 sécurité, hashes |
 | Registre/doc SSI /2 | Traitements réels, finalité/base envisagée/données/durée/destinataires et checklist vérifiable | registre-traitements.md, doc-ssi-checklist.md |
 ## TP et cours complémentaires
@@ -26,9 +26,9 @@ Le code permet la démo ; le passage live et les 8 points de Q&A dépendent du t
 | Cours S5/S6 | Présence/grâce/snapshot, convergence | Implémenté et testé |
 | Cours S7 | Redis et mesures de charge | 40 écritures concurrentes Redis, deux conteneurs A/B et charge100 clients passés |
 | Cours S9 | DataChannel, ICE, chaos200ms/5s | e2e RTC, chaos TCP et Toxiproxy Docker 200ms/5s passés |
-| Sécurité TP1/2 | CI build/lint, contexte, DFD,10 STRIDE/6 catégories | Préparé et documents spécifiques au sujet ; run distant à produire |
-| Sécurité TP3 | Semgrep p/ci+ciblées, Gitleaks historique, seuil, triage3 | Semgrep nominal et historique + Gitleaks observés ; trois findings triés ; historique distant après push |
+| Sécurité TP1/2 | CI build/lint, contexte, DFD,10 STRIDE/6 catégories | Préparé et documents spécifiques au sujet ; run build/lint GitHub passé |
+| Sécurité TP3 | Semgrep p/ci+ciblées, Gitleaks historique, seuil, triage3 | Semgrep nominal et historique + Gitleaks observés ; trois findings triés ; historique GitHub scanné et gate secrets passé |
 | Sécurité TP4 | npm+OSV, SBOM, image, durcissement et politique | npm et OSV passés ; SBOM122 composants ; Trivy image0 HIGH/CRITICAL ; trois bases comparées |
 | Cours S5/S8/S9 | DAST, deux corrections de conception, audit, registre | ZAP gate passé ; auth/IDOR et CSP corrigés ; dossier livré |
-Les essais Docker sont exécutés et documentés. Les runs GitHub et la lecture Security attendent la publication. La préparation technique n'est pas une garantie de note maximale avant ces démonstrations.
+Les essais Docker sont exécutés et documentés. Les runs GitHub sont exécutés ; la publication Security et la lecture du SARIF sont vérifiées. L’ouverture visuelle du finding et les captures seront préparées pour l’oral. La préparation technique n'est pas une garantie de note maximale avant ces démonstrations.
 

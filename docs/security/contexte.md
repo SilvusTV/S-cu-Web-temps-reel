@@ -18,5 +18,5 @@ Visiteur externe voulant suivre une personne, client curieux d'autres commandes,
 | ER3 | Suivi interrompu, impossibilité de superviser une tournée | BE3 | 3 | Dégradation de service immédiate |
 | ER4 | Identité usurpée, accès privilégié et perte de confiance | BE4, BE1 | 4 | Tous les droits dépendent de l'identité |
 ## 5. Suivi
-Runs GitHub non encore exécutés : le dépôt public est SilvusTV/S-cu-Web-temps-reel. Ajouter les URL du run vert, du run rouge et du finding Security dans `preuves-github.md`. Les preuves locales sont dans `../verification.md`.
+Dépôt public SilvusTV/S-cu-Web-temps-reel publié : les quatre workflows nominaux et la régression rouge/verte sont exécutés ; URLs et preuve de publication SARIF Security dans `preuves-github.md`. Les preuves locales sont dans `../verification.md`.
 

@@ -1,0 +1,442 @@
+{
+  "repository": "SilvusTV/S-cu-Web-temps-reel",
+  "nominalCommit": "109751acccf77bc5d355d334c7a00278cac1dcb2",
+  "nominalRuns": {
+    "ci": 37445535436,
+    "sast": 37445535446,
+    "supplyChain": 37445535467,
+    "dast": 37445535453
+  },
+  "redCommit": "b4005242f66d7905af75517de8db5ba745419320",
+  "redRun": 37445975872,
+  "redJobs": {
+    "jobs": [
+      {
+        "id": 112210775525,
+        "name": "sast",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_id": 37445975872,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Préparer la régression de démonstration",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4
+          },
+          {
+            "name": "Scan Semgrep",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Publier le finding dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Seuil de blocage SAST - zéro warning ou error",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 8
+          },
+          {
+            "name": "Post Publier le finding dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 112210775856,
+        "name": "secret-detection",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 37445975872,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Préparer la fausse clé de démonstration",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4
+          },
+          {
+            "name": "Gitleaks - historique complet et arbre courant",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Publier les secrets dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Publier les secrets de l'arbre dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Seuil de blocage secrets - zéro secret, historique et arbre",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Publier les secrets de l'arbre dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Publier les secrets dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      }
+    ]
+  },
+  "redLogExcerpts": [
+    "2026-10-06T09:53:10.8157085Z  • Findings: 2 (2 blocking)",
+    "2026-10-06T09:53:12.7043590Z Successfully uploaded results",
+    "2026-10-06T09:53:17.9570206Z Analysis upload status is complete.",
+    "2026-10-06T09:53:19.2036919Z ##[error]Seuil de blocage : 2 finding(s) dépassent le seuil sarif"
+  ],
+  "artifacts": {
+    "artifacts": [
+      {
+        "id": 11403053136,
+        "name": "dependencies-reports",
+        "size_in_bytes": 753,
+        "url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11403053136",
+        "archive_download_url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11403053136/zip",
+        "expired": false,
+        "created_at": "2026-10-06T09:49:07Z",
+        "expires_at": "2026-10-13T09:49:06Z",
+        "updated_at": "2026-10-06T09:49:07Z",
+        "digest": "sha256:8e1c7effeff6cec858438296eec01256aeb995641d3b1deafade25d0f61725cb",
+        "workflow_run": {
+          "id": 37445535467,
+          "repository_id": 1407056969,
+          "head_repository_id": 1407056969,
+          "head_branch": "main",
+          "head_sha": "109751acccf77bc5d355d334c7a00278cac1dcb2"
+        }
+      },
+      {
+        "id": 11402933393,
+        "name": "sbom-cyclonedx",
+        "size_in_bytes": 6119,
+        "url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11402933393",
+        "archive_download_url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11402933393/zip",
+        "expired": false,
+        "created_at": "2026-10-06T09:49:03Z",
+        "expires_at": "2026-10-13T09:49:02Z",
+        "updated_at": "2026-10-06T09:49:03Z",
+        "digest": "sha256:359456038cdae414d6180fbf269c00483f111ebefe57dae635743b716a759ae2",
+        "workflow_run": {
+          "id": 37445535467,
+          "repository_id": 1407056969,
+          "head_repository_id": 1407056969,
+          "head_branch": "main",
+          "head_sha": "109751acccf77bc5d355d334c7a00278cac1dcb2"
+        }
+      },
+      {
+        "id": 11402593774,
+        "name": "image-reports",
+        "size_in_bytes": 41366,
+        "url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11402593774",
+        "archive_download_url": "https://api.github.com/repos/SilvusTV/S-cu-Web-temps-reel/actions/artifacts/11402593774/zip",
+        "expired": false,
+        "created_at": "2026-10-06T09:49:34Z",
+        "expires_at": "2026-10-13T09:49:33Z",
+        "updated_at": "2026-10-06T09:49:34Z",
+        "digest": "sha256:711cbf97c38afd5e3415a0c2931123d7db9d26b0d4a6af07555bfd63daf73bdb",
+        "workflow_run": {
+          "id": 37445535467,
+          "repository_id": 1407056969,
+          "head_repository_id": 1407056969,
+          "head_branch": "main",
+          "head_sha": "109751acccf77bc5d355d334c7a00278cac1dcb2"
+        }
+      }
+    ]
+  },
+  "greenCommit": "ddaed5d633ce4ab696f04483a1f08d17412e0600",
+  "greenRun": 37446142411,
+  "greenJobs": {
+    "jobs": [
+      {
+        "id": 112211320078,
+        "name": "sast",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 37446142411,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Préparer la régression de démonstration",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4
+          },
+          {
+            "name": "Scan Semgrep",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Publier le finding dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Seuil de blocage SAST - zéro warning ou error",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Post Publier le finding dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          }
+        ]
+      },
+      {
+        "id": 112211320452,
+        "name": "secret-detection",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 37446142411,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Préparer la fausse clé de démonstration",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 4
+          },
+          {
+            "name": "Gitleaks - historique complet et arbre courant",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Publier les secrets dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Publier les secrets de l'arbre dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Seuil de blocage secrets - zéro secret, historique et arbre",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Publier les secrets de l'arbre dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Post Publier les secrets dans Security",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          }
+        ]
+      }
+    ]
+  },
+  "sbomDownloadedComponents": 122
+}

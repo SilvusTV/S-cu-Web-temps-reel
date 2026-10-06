@@ -33,7 +33,7 @@ Charge manuelle sur serveur démarré : `npm run test:load` (100 clients par dé
 ## Sécurité et GitHub
 [Dossier SSI](docs/security/doc-ssi-checklist.md) : contexte EBIOS, STRIDE/DFD, audit, remédiation, registre, politique MCO/MCS et ADR sécurité.
 CI qualité, SAST/secrets, dépendances/SBOM/image et DAST sont dans .github/workflows. Chaque famille possède un **step de seuil explicite**, testé indépendamment ; les actions sont épinglées au SHA. [Activer et démontrer les runs rouge/vert](docs/security/preuves-github.md).
-Ce dépôt n'a pas été envoyé sur GitHub. Les builds/scans/chaos Docker sont vérifiés ; les runs Actions restent à effectuer : [preuves locales et limites](docs/verification.md).
+Dépôt publié sur [GitHub](https://github.com/SilvusTV/S-cu-Web-temps-reel) : quatre workflows verts, démonstration SAST rouge puis verte sur branche dédiée, SARIF Security et SBOM publiés. Voir [preuves locales et limites](docs/verification.md).
 ## Routes et droits
 | Route / canal | Accès |
 |---|---|

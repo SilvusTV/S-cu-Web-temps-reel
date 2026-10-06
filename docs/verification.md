@@ -27,9 +27,9 @@ Les contrôles ont été exécutés sous Windows/Node 25.5 et dans les conteneur
 
 Les alertes ZAP restantes sont la version du scanner (LOW) et des observations INFO (application JS, cache, commentaire tiers « query »). Elles ne sont pas des preuves de fuite de données ; aucune règle n'a été désactivée. Les 31 avis OS MEDIUM/LOW Trivy sont visibles, acceptés au seuil documenté et à réexaminer chaque semaine, pas déclarés inexistants. [Comparaison des bases](security/images.md).
 
-## Preuves qui nécessitent encore le dépôt distant
-Le dépôt distant est https://github.com/SilvusTV/S-cu-Web-temps-reel ; la publication et ses preuves Actions sont en cours. Les URL des runs Actions vert/rouge, l'ouverture effective d'un finding dans Security et le téléchargement du SBOM GitHub seront ajoutés selon [la procédure](security/preuves-github.md). Ce sont les seules preuves d'exécution distante encore attendues.
-Le kit externe de référence n'était pas fourni ; ses exercices sont transposés et testés dans ce projet. Les captures DevTools et la mise en scène orale seront préparées dans la phase présentation.
+## Vérification GitHub
+Le dépôt public est [SilvusTV/S-cu-Web-temps-reel](https://github.com/SilvusTV/S-cu-Web-temps-reel). Les quatre workflows nominaux sont verts, y compris navigateur, Redis, scans et publication SARIF. La branche de démonstration a produit un vrai gate SAST rouge, puis vert après suppression ; main conserve le code nominal. Le SARIF de régression et le SBOM122 composants ont été téléchargés et lus. [URLs, commits et preuves](security/preuves-github.md).
+Le kit externe de référence n'était pas fourni ; ses exercices sont transposés et testés dans ce projet. Les captures DevTools, l'ouverture visuelle du finding Security et la mise en scène orale seront préparées dans la phase présentation. Le traitement SARIF Security est déjà confirmé par le job et ses logs.
 
 ## Rejouer
 `npm run check`, `npm run test:e2e`, `npm run scenario`, `npm run audit:baseline`. Pour Redis : démarrer `docker compose -f docker-compose.security.yml up -d redis-test`, définir TEST_REDIS_URL=redis://127.0.0.1:16379 puis `npm run test:cluster`.

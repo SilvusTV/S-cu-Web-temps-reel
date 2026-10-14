@@ -37,7 +37,7 @@ jobs:
           exit "$status"
       - name: Publier le finding dans Security
         if: always() && hashFiles('reports/semgrep.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4
         with: { sarif_file: reports/semgrep.sarif, category: semgrep }
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: always()
@@ -69,11 +69,11 @@ jobs:
           echo "$?" > reports/gitleaks-tree.exit
       - name: Publier les secrets dans Security
         if: always() && hashFiles('reports/gitleaks-history.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4
         with: { sarif_file: reports/gitleaks-history.sarif, category: gitleaks-history }
       - name: Publier les secrets de l'arbre dans Security
         if: always() && hashFiles('reports/gitleaks-tree.sarif') != '' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
-        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4
         with: { sarif_file: reports/gitleaks-tree.sarif, category: gitleaks-tree }
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         if: always()
